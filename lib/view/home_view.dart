@@ -8,23 +8,21 @@ class homeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: screenHeight * (0.5),
-              child: CalendarView(),
-            ),
-            const Divider(
-              thickness: 2,
-              color: Colors.grey,
-            ),
-            Expanded(
-              child: LawListView(),
-            ),
-          ],
-        ),
+    return SafeArea(
+      child: Column(
+        children: [
+          SizedBox(
+            height: screenHeight * (0.5),
+            child: CalendarView(),
+          ),
+          const Divider(
+            thickness: 2,
+            color: Colors.grey,
+          ),
+          Expanded(
+            child: LawListView(),
+          ),
+        ],
       ),
     );
   }
