@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:todaybills/controller/list_viewController.dart';
+import 'package:todaybills/view/reusable_law_list_view.dart';
 
 class LawListView extends StatefulWidget {
   const LawListView({super.key});
@@ -25,20 +26,11 @@ class _ListViewState extends StateMVC<LawListView> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      child: ListView.builder(
-        itemCount: _controller.laws.length,
-        itemBuilder: (context, index) {
-          final law = _controller.laws[index];
-          print("Law List Count: ${_controller.laws.length}");
-          return Card(
-            child: ListTile(
-              title: Text(law.title),
-              onTap: () => _controller.onSeleted(context, law),
-            ),
-          );
-        },
-      ),
+    return ReusableLawListView(
+      laws: _controller.laws,
+      favoriteIems: _controller.favoriteItems,
+      onToggleFavorite: _controller.toggleFavorite,
+      onSelected: _controller.onSeleted,
     );
   }
 }
