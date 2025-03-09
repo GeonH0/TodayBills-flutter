@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todaybills/view/home_view.dart';
 import 'package:todaybills/view/search_view.dart';
+import 'package:todaybills/view/star_view.dart';
 
 class MaintabView extends StatefulWidget {
   const MaintabView({super.key});
@@ -15,6 +16,7 @@ class _MaintabViewState extends State<MaintabView> {
   static final List<Widget> _pages = <Widget>[
     homeView(),
     SearchView(),
+    StarView()
   ];
 
   void _onItemTapped(int index) {
@@ -31,9 +33,16 @@ class _MaintabViewState extends State<MaintabView> {
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: '',
+            ),
             BottomNavigationBarItem(
               icon: Icon(Icons.search),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.star),
               label: '',
             )
           ]),
