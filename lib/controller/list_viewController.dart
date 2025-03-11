@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todaybills/model/repository/bills_repository.dart';
 import 'package:todaybills/model/law.dart';
 
 class ListViewcontroller extends ControllerMVC {
@@ -10,6 +9,8 @@ class ListViewcontroller extends ControllerMVC {
   Set<Law> favoriteItems = {};
 
   final String name = "";
+
+  final BillsRepository _billsRepository = BillsRepository();
 
   ListViewcontroller() {
     fetchLaws();
@@ -25,9 +26,22 @@ class ListViewcontroller extends ControllerMVC {
     List<String>? favorites = prefs.getStringList('favorite_laws');
     if (favorites != null) {
       setState(() {
-        print(json);
         favoriteItems = favorites.map((json) => Law.fromJson(json)).toSet();
       });
+    }
+  }
+
+  Future<void> updateDate(DateTime newDate) async {
+    try {
+      final fetchedLaws = await _billsRepository.fetchBills(
+        date: newDate,
+        isUserSelectingDate: true,
+      );
+      setState(() {
+        laws = fetchedLaws;
+      });
+    } catch (e) {
+      debugPrint("Error updating date: $e");
     }
   }
 
@@ -35,18 +49,23 @@ class ListViewcontroller extends ControllerMVC {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> jsonFavorites =
         favoriteItems.map((law) => law.toJson()).toList();
-    print(prefs.getStringList('favorite_laws'));
     await prefs.setStringList('favorite_laws', jsonFavorites);
   }
 
-  void fetchLaws() {
-    setState(() {
-      laws = [
-        Law(ID: "1", title: "법안 1"),
-        Law(ID: "2", title: "법안 2"),
-        Law(ID: "3", title: "법안 3"),
-      ];
-    });
+  Future<void> fetchLaws(
+      {DateTime? date, bool isUserSelectingDate = false}) async {
+    try {
+      final targetDate = date ?? DateTime.now();
+      final fetchedLaws = await _billsRepository.fetchBills(
+        date: targetDate,
+        isUserSelectingDate: isUserSelectingDate,
+      );
+      setState(() {
+        laws = fetchedLaws;
+      });
+    } catch (e) {
+      debugPrint("Error fetching bills: $e");
+    }
   }
 
   void toggleFavorite(Law law) {

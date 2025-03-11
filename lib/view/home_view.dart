@@ -2,8 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:todaybills/view/calendar_view.dart';
 import 'package:todaybills/view/law_list_view.dart';
 
-class homeView extends StatelessWidget {
+class homeView extends StatefulWidget {
   const homeView({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _homeViewState();
+}
+
+class _homeViewState extends State<homeView> {
+  DateTime _selectedDate = DateTime.now();
+
+  void _onDateSelected(DateTime newDate) {
+    setState(() {
+      _selectedDate = newDate;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +26,19 @@ class homeView extends StatelessWidget {
         children: [
           SizedBox(
             height: screenHeight * (0.5),
-            child: CalendarView(),
+            child: CalendarView(
+              selectedDate: _selectedDate,
+              onDateSelected: _onDateSelected,
+            ),
           ),
           const Divider(
             thickness: 2,
             color: Colors.grey,
           ),
           Expanded(
-            child: LawListView(),
+            child: LawListView(
+              selectedDate: _selectedDate,
+            ),
           ),
         ],
       ),
