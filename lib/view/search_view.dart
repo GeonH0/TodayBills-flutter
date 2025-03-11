@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:todaybills/controller/search_viewController.dart';
@@ -69,7 +68,9 @@ class _SearchView extends StateMVC<SearchView> {
               valueListenable: _controller.searchController,
               builder: (context, value, child) {
                 return value.text.isNotEmpty
-                    ? LawListView()
+                    ? LawListView(
+                        selectedDate: DateTime.now(),
+                      )
                     : ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         itemCount: _controller.recentSearches.length,
