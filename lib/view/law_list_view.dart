@@ -4,7 +4,12 @@ import 'package:todaybills/controller/list_viewController.dart';
 import 'package:todaybills/view/reusable_law_list_view.dart';
 
 class LawListView extends StatefulWidget {
-  const LawListView({super.key});
+  final DateTime selectedDate;
+
+  const LawListView({
+    super.key,
+    required this.selectedDate,
+  });
 
   @override
   _ListViewState createState() => _ListViewState();
@@ -24,8 +29,16 @@ class _ListViewState extends StateMVC<LawListView> {
   }
 
   @override
+  void didUpdateWidget(covariant LawListView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selectedDate != widget.selectedDate) {
+      _controller.fetchLaws(date: widget.selectedDate);
+      _controller.updateDate(widget.selectedDate);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return ReusableLawListView(
       laws: _controller.laws,
       favoriteIems: _controller.favoriteItems,
