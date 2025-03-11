@@ -31,7 +31,7 @@ class _StarView extends StateMVC<StarView> {
         title: const Text('즐겨찾기'),
       ),
       body: ReusableLawListView(
-        laws: _controller.laws,
+        laws: _controller.favoriteItems.toList(),
         favoriteIems: _controller.favoriteItems,
         onToggleFavorite: _controller.toggleFavorite,
         onSelected: _controller.onSeleted,
