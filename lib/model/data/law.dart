@@ -3,16 +3,19 @@ import 'dart:convert';
 class Law {
   final String ID;
   final String title;
+  final String age;
 
   Law({
     required this.ID,
     required this.title,
+    required this.age,
   });
 
   String toJson() {
     return jsonEncode({
       'ID': ID,
       'title': title,
+      'age': age,
     });
   }
 
@@ -22,6 +25,7 @@ class Law {
       return Law(
         ID: decoded['ID'],
         title: decoded['title'],
+        age: decoded['age'],
       );
     } else {
       throw Exception("Invalid JSON format for Law: $jsonString");
