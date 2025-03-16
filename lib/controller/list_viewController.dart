@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todaybills/model/repository/bills_repository.dart';
-import 'package:todaybills/model/law.dart';
+import 'package:todaybills/model/data/law.dart';
+import 'package:todaybills/view/detail/detail_view.dart';
 
 class ListViewcontroller extends ControllerMVC {
   List<Law> laws = [];
   Set<Law> favoriteItems = {};
 
-  final String name = "";
+  final String id = "";
+  final String age = "";
 
   final BillsRepository _billsRepository = BillsRepository();
 
@@ -17,8 +19,18 @@ class ListViewcontroller extends ControllerMVC {
     loadFavorites();
   }
 
-  void onSeleted(BuildContext context, name) {
-    return;
+  void onSeleted(BuildContext context, String selectedID, String age) {
+    debugPrint("Selected Law ID: $selectedID");
+    // 예를 들어, 상세 화면으로 이동하는 경우:
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailView(
+          lawId: selectedID,
+          age: age,
+        ),
+      ),
+    );
   }
 
   Future<void> loadFavorites() async {
