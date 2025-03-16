@@ -47,9 +47,9 @@ class SearchViewcontroller extends ControllerMVC {
   void _saveRecentSearch(String search) async {
     final prefs = await SharedPreferences.getInstance();
     if (!recentSearches.contains(search)) {
-      recentSearches.insert(0, search); // 최근 검색어 앞에 추가
+      recentSearches.insert(0, search);
       if (recentSearches.length > 5) {
-        recentSearches.removeLast(); // 최대 5개만 유지
+        recentSearches.removeLast();
       }
       await prefs.setStringList('recent_searches', recentSearches);
       setState(() {});

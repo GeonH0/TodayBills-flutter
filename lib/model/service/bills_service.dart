@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:todaybills/model/bill.dart';
+import 'package:todaybills/model/data/bill.dart';
 
 final class BillService {
   final String baseUrl =

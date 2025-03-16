@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:todaybills/model/law.dart';
+import 'package:todaybills/model/data/law.dart';
 import 'package:todaybills/model/service/bills_service.dart';
-import 'package:todaybills/model/bill.dart';
+import 'package:todaybills/model/data/bill.dart';
 
 final class BillsRepositoryError implements Exception {
   final String message;
@@ -81,6 +80,7 @@ class BillsRepository {
       final law = Law(
         ID: bill.billId,
         title: bill.billName,
+        age: bill.age,
       );
       billsByDate.putIfAbsent(dateKey, () => []);
       // 중복 저장 방지

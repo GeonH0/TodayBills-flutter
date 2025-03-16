@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todaybills/model/law.dart';
+import 'package:todaybills/model/data/law.dart';
 
 class ReusableLawListView extends StatelessWidget {
   final List<Law> laws;
   final Set<Law> favoriteIems;
   final void Function(Law) onToggleFavorite;
-  final void Function(BuildContext, String) onSelected;
+  final void Function(BuildContext, String, String) onSelected;
 
   const ReusableLawListView({
     super.key,
@@ -38,7 +37,7 @@ class ReusableLawListView extends StatelessWidget {
               ),
               onPressed: () => onToggleFavorite(law),
             ),
-            onTap: () => onSelected(context, law.title),
+            onTap: () => onSelected(context, law.ID, law.age),
           ),
         );
       },
