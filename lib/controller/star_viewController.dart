@@ -1,5 +1,5 @@
 import 'package:todaybills/controller/list_viewController.dart';
-import 'package:todaybills/model/law.dart';
+import 'package:todaybills/model/data/law.dart';
 
 class StarViewcontroller extends ListViewcontroller {
   @override
