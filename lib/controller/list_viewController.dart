@@ -21,7 +21,6 @@ class ListViewcontroller extends ControllerMVC {
 
   void onSeleted(BuildContext context, String selectedID, String age) {
     debugPrint("Selected Law ID: $selectedID");
-    // 예를 들어, 상세 화면으로 이동하는 경우:
     Navigator.push(
       context,
       MaterialPageRoute(

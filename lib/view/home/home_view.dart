@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todaybills/view/calendar/calendar_view.dart';
-import 'package:todaybills/view/law_list_view.dart';
+import 'package:todaybills/view/calendar/law_list_view.dart';
 
 class homeView extends StatefulWidget {
   const homeView({super.key});

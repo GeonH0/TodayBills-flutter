@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todaybills/view/home_view.dart';
-import 'package:todaybills/view/search_view.dart';
-import 'package:todaybills/view/star_view.dart';
+import 'package:todaybills/view/home/home_view.dart';
+import 'package:todaybills/view/search/search_view.dart';
+import 'package:todaybills/view/star/star_view.dart';
 
 class MaintabView extends StatefulWidget {
   const MaintabView({super.key});
