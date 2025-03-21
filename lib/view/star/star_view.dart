@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:todaybills/controller/star_viewController.dart';
-import 'package:todaybills/view/reusable_law_list_view.dart';
+import 'package:todaybills/view/reusable_law_list/reusable_law_list_view.dart';
 
 class StarView extends StatefulWidget {
   const StarView({super.key});
