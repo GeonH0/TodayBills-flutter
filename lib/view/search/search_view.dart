@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:todaybills/controller/search_viewController.dart';
-import 'package:todaybills/model/data/law.dart';
 import 'package:todaybills/view/reusable_law_list/reusable_law_list_view.dart';
 
 class SearchView extends StatefulWidget {
@@ -13,7 +12,7 @@ class SearchView extends StatefulWidget {
 class _SearchViewState extends StateMVC<SearchView> {
   late SearchViewController _controller;
 
-  _SearchViewState() : super(SearchViewController()) {
+  _SearchViewState() : super() {
     _controller = controller as SearchViewController;
   }
 

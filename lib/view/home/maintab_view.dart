@@ -3,14 +3,14 @@ import 'package:todaybills/view/home/home_view.dart';
 import 'package:todaybills/view/search/search_view.dart';
 import 'package:todaybills/view/star/star_view.dart';
 
-class MaintabView extends StatefulWidget {
+final class MaintabView extends StatefulWidget {
   const MaintabView({super.key});
 
   @override
   State<StatefulWidget> createState() => _MaintabViewState();
 }
 
-class _MaintabViewState extends State<MaintabView> {
+final class _MaintabViewState extends State<MaintabView> {
   int _selectedIndex = 0;
 
   static final List<Widget> _pages = <Widget>[

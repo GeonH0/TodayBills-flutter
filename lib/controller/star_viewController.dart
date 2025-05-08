@@ -1,7 +1,9 @@
 import 'package:todaybills/controller/list_viewController.dart';
 import 'package:todaybills/model/data/law.dart';
 
-class StarViewcontroller extends ListViewcontroller {
+final class StarViewcontroller extends ListViewcontroller {
+  StarViewcontroller({required super.repository});
+
   @override
   void initState() {
     super.initState();

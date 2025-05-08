@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todaybills/model/data/law.dart';
 
-class ReusableLawListView extends StatelessWidget {
+final class ReusableLawListView extends StatelessWidget {
   final List<Law> laws;
   final Set<Law> favoriteIems;
   final void Function(Law) onToggleFavorite;

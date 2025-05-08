@@ -12,9 +12,10 @@ class ListViewcontroller extends ControllerMVC {
   final String id = "";
   final String age = "";
 
-  final BillsRepository _billsRepository = BillsRepository();
+  final BillsRepository _billsRepository;
 
-  ListViewcontroller() {
+  ListViewcontroller({required BillsRepository repository})
+      : _billsRepository = repository {
     fetchLaws();
     loadFavorites();
   }

@@ -3,9 +3,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todaybills/controller/list_viewController.dart';
 import 'package:todaybills/model/data/bill.dart';
 import 'package:todaybills/model/data/law.dart';
+import 'package:todaybills/model/repository/bills_repository.dart';
 import 'package:todaybills/model/service/search_service.dart';
 
-class SearchViewController extends ListViewcontroller {
+final class SearchViewController extends ListViewcontroller {
   List<String> filteredItems = [];
   final List<String> keywords = ["부동산", "안전", "근로", "산업", "환경", "교육"];
   List<Law> searchList = []; // 검색 결과
@@ -13,10 +14,12 @@ class SearchViewController extends ListViewcontroller {
 
   final TextEditingController searchController = TextEditingController();
   final SearchService searchService = SearchService();
+  final BillsRepository repository;
 
-  SearchViewController() {
+  SearchViewController(this.repository) : super(repository: BillsRepository()) {
     searchController.addListener(onSearchChanged);
   }
+
   @override
   void initState() {
     super.initState();

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:todaybills/controller/list_viewController.dart';
+import 'package:todaybills/model/repository/bills_repository.dart';
 import 'package:todaybills/view/reusable_law_list/reusable_law_list_view.dart';
 
-class LawListView extends StatefulWidget {
+final class LawListView extends StatefulWidget {
   final DateTime selectedDate;
 
   const LawListView({
@@ -15,10 +16,13 @@ class LawListView extends StatefulWidget {
   _ListViewState createState() => _ListViewState();
 }
 
-class _ListViewState extends StateMVC<LawListView> {
+final class _ListViewState extends StateMVC<LawListView> {
   late ListViewcontroller _controller;
 
-  _ListViewState() : super(ListViewcontroller()) {
+  _ListViewState()
+      : super(ListViewcontroller(
+          repository: BillsRepository(),
+        )) {
     _controller = controller as ListViewcontroller;
   }
 
