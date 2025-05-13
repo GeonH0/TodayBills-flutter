@@ -1,20 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:todaybills/controller/search_viewController.dart';
-import 'package:todaybills/model/data/law.dart';
-import 'package:todaybills/view/reusable_law_list/reusable_law_list_view.dart';
+import 'package:todaybills/model/repository/bills_repository.dart';
+import 'package:todaybills/model/service/search_service.dart';
+import 'package:todaybills/view/calendar/law_list_view.dart';
 
 class SearchView extends StatefulWidget {
-  const SearchView({super.key});
+  final GlobalKey<ListViewState> lawListKey;
+
+  const SearchView({
+    super.key,
+    required this.lawListKey,
+  });
+
   @override
   State<StatefulWidget> createState() => _SearchViewState();
 }
 
 class _SearchViewState extends StateMVC<SearchView> {
-  late SearchViewController _controller;
+  late final SearchViewController _controller;
 
-  _SearchViewState() : super(SearchViewController()) {
+  _SearchViewState()
+      : super(SearchViewController(
+          repository: BillsRepository(),
+          searchService: SearchService(),
+        )) {
     _controller = controller as SearchViewController;
+  }
+
+  void refreshFavorites() {
+    _controller.loadFavorites();
+    setState(() {});
   }
 
   @override
@@ -33,6 +49,9 @@ class _SearchViewState extends StateMVC<SearchView> {
                 hintText: "법안을 검색해 보세요",
                 border: OutlineInputBorder(),
               ),
+              onSubmitted: (value) {
+                _controller.onSearchChanged();
+              },
             ),
           ),
           Padding(
@@ -70,21 +89,9 @@ class _SearchViewState extends StateMVC<SearchView> {
               valueListenable: _controller.searchController,
               builder: (context, value, child) {
                 final query = value.text.trim();
-                if (query.isNotEmpty) {
-                  final results = _controller.searchList;
-                  if (results.isEmpty) {
-                    return const Center(
-                      child: Text("검색 결과가 없습니다."),
-                    );
-                  } else {
-                    return ReusableLawListView(
-                      laws: results,
-                      favoriteIems: _controller.favoriteItems,
-                      onToggleFavorite: _controller.toggleFavorite,
-                      onSelected: _controller.onSeleted,
-                    );
-                  }
-                } else {
+                final results = _controller.searchList;
+
+                if (query.isEmpty) {
                   return Column(
                     children: [
                       Padding(
@@ -129,6 +136,16 @@ class _SearchViewState extends StateMVC<SearchView> {
                         ),
                       ),
                     ],
+                  );
+                }
+                if (results.isEmpty) {
+                  return const Center(
+                    child: Text("검색 결과가 없습니다."),
+                  );
+                } else {
+                  return LawListView(
+                    key: widget.lawListKey,
+                    overrideLaws: results,
                   );
                 }
               },

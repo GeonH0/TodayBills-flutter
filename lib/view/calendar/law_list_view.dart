@@ -1,40 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:todaybills/controller/list_viewController.dart';
+import 'package:todaybills/model/data/law.dart';
+import 'package:todaybills/model/repository/bills_repository.dart';
 import 'package:todaybills/view/reusable_law_list/reusable_law_list_view.dart';
 
 class LawListView extends StatefulWidget {
-  final DateTime selectedDate;
+  final DateTime? selectedDate;
+  final List<Law>? overrideLaws;
 
   const LawListView({
     super.key,
-    required this.selectedDate,
+    this.selectedDate,
+    this.overrideLaws,
   });
 
   @override
-  _ListViewState createState() => _ListViewState();
+  ListViewState createState() => ListViewState();
 }
 
-class _ListViewState extends StateMVC<LawListView> {
+class ListViewState extends StateMVC<LawListView> {
   late ListViewcontroller _controller;
 
-  _ListViewState() : super(ListViewcontroller()) {
+  ListViewState()
+      : super(ListViewcontroller(
+          repository: BillsRepository(),
+        )) {
     _controller = controller as ListViewcontroller;
   }
 
   @override
   void initState() {
     super.initState();
-    _controller.fetchLaws();
+    _applyModeAndFetch();
+    _controller.loadFavorites();
   }
 
   @override
   void didUpdateWidget(covariant LawListView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.selectedDate != widget.selectedDate) {
-      _controller.fetchLaws(date: widget.selectedDate);
-      _controller.updateDate(widget.selectedDate);
+    if (oldWidget.overrideLaws != widget.overrideLaws) {
+      _applyModeAndFetch();
+      return;
     }
+    if (widget.overrideLaws == null &&
+        oldWidget.selectedDate != widget.selectedDate) {
+      _controller.fetchLaws(date: widget.selectedDate);
+    }
+  }
+
+  void _applyModeAndFetch() {
+    if (widget.overrideLaws != null) {
+      _controller.laws = widget.overrideLaws!;
+    } else {
+      _controller.fetchLaws(date: widget.selectedDate);
+    }
+  }
+
+  void refreshFavorites() {
+    _controller.loadFavorites();
+    setState(() {});
   }
 
   @override

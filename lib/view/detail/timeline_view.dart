@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todaybills/model/data/timeline_step.dart';
 import 'package:todaybills/view/detail/timeline_item_view.dart';
 
-class TimelineView extends StatelessWidget {
+final class TimelineView extends StatelessWidget {
   final List<TimelineStep> steps;
 
   const TimelineView({

@@ -11,7 +11,7 @@ final class BillsRepositoryError implements Exception {
   String toString() => message;
 }
 
-class BillsRepository {
+final class BillsRepository {
   final BillService billsService = BillService();
   // 날짜별 법안들을 저장하는 Map (키: "yyyy-MM-dd", 값: List<Law>)
   final Map<String, List<Law>> billsByDate = {};

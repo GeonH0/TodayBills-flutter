@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todaybills/model/data/timeline_step.dart';
 
-class TimelineItemView extends StatelessWidget {
+final class TimelineItemView extends StatelessWidget {
   final TimelineStep step;
 
   const TimelineItemView({

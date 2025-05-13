@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todaybills/controller/list_viewController.dart';
 import 'package:todaybills/model/data/bill.dart';
 import 'package:todaybills/model/data/law.dart';
+import 'package:todaybills/model/repository/bills_repository.dart';
 import 'package:todaybills/model/service/search_service.dart';
 
 class SearchViewController extends ListViewcontroller {
@@ -12,11 +13,13 @@ class SearchViewController extends ListViewcontroller {
   List<String> recentSearches = []; // 최근 검색어 리스트
 
   final TextEditingController searchController = TextEditingController();
-  final SearchService searchService = SearchService();
+  final SearchService searchService;
 
-  SearchViewController() {
-    searchController.addListener(onSearchChanged);
-  }
+  SearchViewController({
+    required super.repository,
+    required this.searchService,
+  });
+
   @override
   void initState() {
     super.initState();
@@ -33,6 +36,7 @@ class SearchViewController extends ListViewcontroller {
   void onTapKeyword(String keyword) {
     searchController.text = keyword;
     _saveRecentSearch(keyword);
+    onSearchChanged();
   }
 
   Law convertBillToLaw(Bill bill) {
@@ -53,8 +57,14 @@ class SearchViewController extends ListViewcontroller {
     }
 
     final results = await searchService.searchBillsByKeywords(query);
+    _saveRecentSearch(query);
+    final uniqueMap = <String, Law>{};
+    for (final bill in results) {
+      final law = convertBillToLaw(bill);
+      uniqueMap[law.ID] = law;
+    }
     setState(() {
-      searchList = results.map((bill) => convertBillToLaw(bill)).toList();
+      searchList = uniqueMap.values.toList();
     });
   }
 

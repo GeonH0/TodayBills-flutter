@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ExpandableLabelView extends StatefulWidget {
+final class ExpandableLabelView extends StatefulWidget {
   final String text;
 
   const ExpandableLabelView({
@@ -12,7 +12,7 @@ class ExpandableLabelView extends StatefulWidget {
   State<ExpandableLabelView> createState() => _ExpandableLabelViewState();
 }
 
-class _ExpandableLabelViewState extends State<ExpandableLabelView>
+final class _ExpandableLabelViewState extends State<ExpandableLabelView>
     with TickerProviderStateMixin {
   bool isExpanded = false;
 
