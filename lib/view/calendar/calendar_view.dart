@@ -8,12 +8,10 @@ import 'package:todaybills/model/repository/bills_repository.dart';
 class CalendarView extends StatefulWidget {
   final DateTime selectedDate;
   final ValueChanged<DateTime> onDateSelected;
-  final BillsRepository repository;
 
   const CalendarView({
     required this.selectedDate,
     required this.onDateSelected,
-    required this.repository,
     super.key,
   });
 
@@ -21,7 +19,11 @@ class CalendarView extends StatefulWidget {
   StateMVC<CalendarView> createState() => _CalendarViewState();
 }
 
-class _CalendarViewState extends StateMVC<CalendarView> {
+class _CalendarViewState extends StateMVC<CalendarView>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   late CalendarViewcontroller _controller;
 
   _CalendarViewState()
@@ -52,6 +54,7 @@ class _CalendarViewState extends StateMVC<CalendarView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return TableCalendar(
       headerStyle: HeaderStyle(
         formatButtonVisible: false,

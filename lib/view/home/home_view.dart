@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:todaybills/controller/calendar_viewController.dart';
 import 'package:todaybills/model/repository/bills_repository.dart';
 import 'package:todaybills/view/calendar/calendar_view.dart';
 import 'package:todaybills/view/calendar/law_list_view.dart';
 
 final class homeView extends StatefulWidget {
-  const homeView({super.key});
+  final GlobalKey<ListViewState> lawListKey;
+  const homeView({
+    required this.lawListKey,
+  });
 
   @override
   State<StatefulWidget> createState() => _homeViewState();
@@ -30,7 +34,6 @@ final class _homeViewState extends State<homeView> {
             child: CalendarView(
               selectedDate: _selectedDate,
               onDateSelected: _onDateSelected,
-              repository: BillsRepository(),
             ),
           ),
           const Divider(
@@ -39,6 +42,7 @@ final class _homeViewState extends State<homeView> {
           ),
           Expanded(
             child: LawListView(
+              key: widget.lawListKey,
               selectedDate: _selectedDate,
             ),
           ),
