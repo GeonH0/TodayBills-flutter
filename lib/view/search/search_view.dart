@@ -28,11 +28,6 @@ class _SearchViewState extends StateMVC<SearchView> {
     _controller = controller as SearchViewController;
   }
 
-  void refreshFavorites() {
-    _controller.loadFavorites();
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(

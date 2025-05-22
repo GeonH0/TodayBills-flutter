@@ -7,7 +7,6 @@ class CalendarViewcontroller extends ControllerMVC {
   late DateTime focusedDay;
 
   CalendarViewcontroller({required this.repository}) {
-    // 초기값은 나중에 _initializeCalendar() 에서 덮어씁니다.
     selectedDay = DateTime.now();
     focusedDay = DateTime.now();
   }

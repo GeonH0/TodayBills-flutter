@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:provider/provider.dart';
 import 'package:todaybills/controller/list_viewController.dart';
 import 'package:todaybills/model/data/law.dart';
 import 'package:todaybills/model/repository/bills_repository.dart';
+import 'package:todaybills/provider/favorites_provider.dart';
 import 'package:todaybills/view/reusable_law_list/reusable_law_list_view.dart';
 
 class LawListView extends StatefulWidget {
@@ -33,7 +35,6 @@ class ListViewState extends StateMVC<LawListView> {
   void initState() {
     super.initState();
     _applyModeAndFetch();
-    _controller.loadFavorites();
   }
 
   @override
@@ -57,17 +58,12 @@ class ListViewState extends StateMVC<LawListView> {
     }
   }
 
-  void refreshFavorites() {
-    _controller.loadFavorites();
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
+    final favorites = context.watch<FavoritesProvider>().favorites;
     return ReusableLawListView(
       laws: _controller.laws,
-      favoriteIems: _controller.favoriteItems,
-      onToggleFavorite: _controller.toggleFavorite,
+      favoriteIems: favorites,
       onSelected: _controller.onSeleted,
     );
   }

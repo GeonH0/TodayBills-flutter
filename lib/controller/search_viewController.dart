@@ -3,7 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todaybills/controller/list_viewController.dart';
 import 'package:todaybills/model/data/bill.dart';
 import 'package:todaybills/model/data/law.dart';
-import 'package:todaybills/model/repository/bills_repository.dart';
 import 'package:todaybills/model/service/search_service.dart';
 
 class SearchViewController extends ListViewcontroller {
@@ -24,7 +23,6 @@ class SearchViewController extends ListViewcontroller {
   void initState() {
     super.initState();
     _loadRecentSearches();
-    loadFavorites();
   }
 
   @override
@@ -94,20 +92,5 @@ class SearchViewController extends ListViewcontroller {
         recentSearches.clear();
       });
     }
-  }
-
-  @override
-  Future<void> loadFavorites() {
-    return super.loadFavorites();
-  }
-
-  @override
-  Future<void> saveFavorites() {
-    return super.saveFavorites();
-  }
-
-  @override
-  void toggleFavorite(Law law) {
-    super.toggleFavorite(law);
   }
 }
