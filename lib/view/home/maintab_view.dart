@@ -30,11 +30,6 @@ class _MaintabViewState extends State<MaintabView> {
 
   void _onItemTapped(int idx) {
     setState(() => _selectedIndex = idx);
-    if (idx == 0) {
-      _lawListKey.currentState?.refreshFavorites();
-    } else if (idx == 1) {
-      _searchlawListKey.currentState?.refreshFavorites();
-    }
   }
 
   @override
